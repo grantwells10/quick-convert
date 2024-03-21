@@ -15,19 +15,11 @@ def get_live_rates(api_key):
         print("Error fetching data")
 
 def convert_currency(amount, from_currency, to_currency):
+    print("Converting...")
     rates = get_live_rates(api_key=API_KEY)
     if from_currency == "USD":
         conversion_rate = rates.get(f"USD{to_currency}")
     else:
         conversion_rate = rates.get(f"USD{to_currency}") / rates.get(f"USD{from_currency}")
+    print("Done!")
     return amount * conversion_rate
-
-amount = input("Enter amount: ")
-
-from_curr = input("Enter from currency: ")
-
-to_curr = input("Enter to currency: ")
-
-print(convert_currency(int(amount), from_curr, to_curr))
-
-

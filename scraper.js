@@ -1,4 +1,29 @@
 const puppeteer = require('puppeteer');
+const convertCurrency = require('./convert.js');
+const readlineSync = require('readline-sync');
+
+const currencySymbols = {
+    '$': 'USD',
+    '€': 'EUR',
+    '£': 'GBP',
+    '¥': 'JPY',
+    '₹': 'INR'
+    // add more
+};
+
+//get the currency symbol from the price string
+function parseCurrencySymbol(s) {
+    const regex = /[$€£¥₹]/g;
+    const matches = s.match(regex);
+    return matches ? matches.join('') : '';
+}
+
+//get the currency amount from the price string
+function parseCurrencyAmount(s) {
+    const regex = /[0-9]+(\.[0-9][0-9])?/g;
+    const matches = s.match(regex);
+    return matches ? matches[0] : '';
+}
 
 async function scrapePrice(url) {
     const browser = await puppeteer.launch({ headless : true });
@@ -20,6 +45,17 @@ async function scrapePrice(url) {
 }
 
 (async () => {
+    // NEED TO FIGURE OUT HOW TO ONLY SCRAPE ONE OF THE PRICES
     const price = await scrapePrice('https://www.amazon.com/Apple-iPhone-11-64GB-Unlocked/dp/B07ZPKZSSC');
-    console.log(price);
+    console.log("Price: ", price);
+    const symbol = parseCurrencySymbol(price)[0];
+    console.log("symbol: ", symbol);
+    const amount = parseCurrencyAmount(price);
+    console.log("amount: ", amount);
+    const fromCurrency = currencySymbols[symbol];
+    console.log("fromCurrency: ", fromCurrency);
+    const toCurrency = readlineSync.question('Enter the currency you want to convert to: ');
+    console.log("toCurrency: ", toCurrency);
+    const converted = await convertCurrency(amount, fromCurrency, toCurrency);
+    console.log(converted);
 })();

@@ -7,7 +7,6 @@ async function getLiveRates(key) {
     const url = `http://api.currencylayer.com/live?access_key=${key}`;
     try {
         const response = await axios.get(url);
-        console.log(response.data);
         const data = response.data.quotes; 
         return data; 
     } catch (error) {
@@ -26,9 +25,4 @@ async function convertCurrency(amount, fromCurrency, toCurrency) {
     return amount * conversionRate; 
 }
 
-convertCurrency(100, 'USD', 'CAD').then((result) => {
-    console.log(`Converted amount: ${result}`);
-  }).catch((error) => {
-    console.error("Conversion error", error);
-  });
-
+module.exports = convertCurrency;

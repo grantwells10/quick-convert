@@ -1,21 +1,21 @@
-require('dotenv').config(); 
-const axios = require('axios'); 
+import { API_KEY } from './config.js'; 
 
-const API_KEY = process.env.CURRENCYLAYER_API_KEY; 
+//caching, store data with time stamp 
 
-async function getLiveRates(key) {
+function getLiveRates(key) {
     const url = `http://api.currencylayer.com/live?access_key=${key}`;
-    try {
-        const response = await axios.get(url);
-        const data = response.data.quotes; 
-        return data; 
-    } catch (error) {
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); 
+    })
+    .catch(error => {
         console.error("Error fetching currency conversion data"); 
-    }
+    });
 }
 
-async function convertCurrency(amount, fromCurrency, toCurrency) {
-    const rates = await getLiveRates(API_KEY); 
+function convertCurrency(amount, fromCurrency, toCurrency) {
+    const rates = getLiveRates(API_KEY); 
     let conversionRate; 
     if (fromCurrency === "USD") {
         conversionRate = rates[`USD${toCurrency}`]; 
@@ -25,4 +25,7 @@ async function convertCurrency(amount, fromCurrency, toCurrency) {
     return amount * conversionRate; 
 }
 
-module.exports = convertCurrency;
+console.log("Hello");
+console.log(getLiveRates(API_KEY));
+
+export default convertCurrency;

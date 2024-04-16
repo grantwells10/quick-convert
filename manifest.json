@@ -4,7 +4,7 @@
     "version": "1.0",
     "permissions": [
         "storage",
-        "https://api.currencylayer.com/"
+        "http://api.currencylayer.com/"
     ],
     "background": {
         "service_worker": "background.js"

@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "Currency Exchange Rates",
+    "version": "1.0",
+    "permissions": [
+        "storage",
+        "https://api.currencylayer.com/"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    }
+}

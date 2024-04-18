@@ -1,8 +1,8 @@
 export const Currencies = {
     currency : [
-        { Key: $, Value: 'USD' },
-        { Key: €, Value: 'EUR' },
-        { Key: £, Value: 'GBP' }    
+        { Key: '$', Value: 'USD' },
+        { Key: '€', Value: 'EUR' },
+        { Key: '£', Value: 'GBP' }    
     ]
 }
-export default Cities;
+export default Currencies;

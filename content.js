@@ -19,8 +19,6 @@ function createPopup(selectionText, position) {
     return popup;
 }
 
-
-
 document.addEventListener("mouseup", function(event) {
   var selection = window.getSelection();
   var selectionText = selection.toString().trim();

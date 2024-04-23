@@ -1,4 +1,4 @@
-import { API_KEY } from './config.js'; 
+//import {API_KEY} from "/config2.js";
 
 console.log("[Content] this is content script")
 
@@ -6,23 +6,23 @@ console.log("[Content] this is content script")
 
 async function fetchAndCacheRates() {
     try {
-        const url = `http://api.currencylayer.com/live?access_key=${API_KEY}`;
+        const url = `https://apilayer.net/api/live?access_key=2ba7d59224fbc76168b363c9ac91fe82`;
         const response = await fetch(url);
-        if (!response) {
+        if (!response) { 
             throw new Error("Failed to fetch data");
         }
         // only get the quotes
-        const data = await response.json().quotes;
+        const data = await response.json();
         // store the conversion rates with the timestamp of retrieval in milliseconds
         const entry = {
-            data: data,
+            data: data.quotes,
             timestamp: Date.now()
         }
         // use chrome.storage.local to store the data, it automatically serializes the data
         await chrome.storage.local.set({exchangeRates: entry});
         return data; 
     } catch (error) {
-        console.log(error);
+        console.log("CANT FETCH DATA");
         return null;
     }
 }
@@ -30,12 +30,16 @@ async function fetchAndCacheRates() {
 // Function to convert currency from a given amount, fromCurrency to toCurrency
 
 async function convertCurrency(amount, fromCurrency, toCurrency) {
-    const rates = await retrieveCache('exchangeRates');
+    const rates = await retrieveCache();
     let conversionRate; 
     if (fromCurrency === "USD") {
         conversionRate = rates[`USD${toCurrency}`]; 
     } else {
-        conversionRate =  rates[`USD${toCurrency}`] / rates[`USD${fromCurrency}`]; 
+        if (toCurrency === "USD") {
+            conversionRate = 1 / rates[`USD${fromCurrency}`]; 
+        } else {
+            conversionRate =  rates[`USD${toCurrency}`] / rates[`USD${fromCurrency}`]; 
+        }
     }
     return amount * conversionRate; 
 }
@@ -46,23 +50,29 @@ async function retrieveCache() {
     return new Promise((resolve, reject) => {
         // try to retrieve the data from the cache
         chrome.storage.local.get(['exchangeRates'], function(output) {
+            console.log("CHeckpoint1");
             // if chrome error, reject the promise
             if (chrome.runtime.lastError) {
+                console.log("CHeckpoint2");
                 reject(chrome.runtime.lastError);
                 return; 
             } 
             // try to fetch data from the API
             const response = output.exchangeRates; 
             // if nothing there, fetch and cache data 
-            if (!response) {
+            if (!response.data) {
+                console.log("No data found, doing initial API call...");
                 resolve(fetchAndCacheRates());
                 return; 
             }
             // else, check if its expired
             const now = Date.now();
             const timestamp = response.timestamp;
+            console.log("CHeckpoint3");
             if (now - timestamp > 28800000) {
+                console.log("CHeckpoint4");
                 // remove the old data, clean up step, if older than 8 hours
+                console.log("Data expired, doing another API call..."); 
                 chrome.storage.local.remove('exchangeRates', function() { 
                     // check for error again
                     if (chrome.runtime.lastError) {
@@ -117,6 +127,31 @@ function createPopup(selectionText, position) {
 
     return popup;
 }
+
+document.addEventListener("mouseup", async (event) => {
+    var selection = window.getSelection();
+    var selectionText = selection.toString().trim();
+    console.log("[Content] selection: " + selection);
+    if (selectionText && selectionText !== "") {
+      var rect = selection.getRangeAt(0).getBoundingClientRect();
+      try {
+        const selectedCurr = await extractCurrencyAndAmount(selectionText); 
+        const result = await convertCurrency(selectedCurr.number, selectedCurr.currency, "USD");
+        const popup = createPopup(result, rect);
+        document.body.appendChild(popup);
+        document.addEventListener("mousedown", function(event) {
+          var isClickInside = popup.contains(event.target);
+          if (!isClickInside) {
+              popup.parentNode.removeChild(popup);
+              document.removeEventListener("mousedown", arguments.callee);
+          }
+        });
+      } catch(error) {
+        throw(error);
+      }
+    }
+  });
+  
 
 
 

@@ -1,23 +1,21 @@
 {
-    "manifest_version": 3,
-    "name": "Currency Exchange Rates",
-    "version": "1.0",
-    "offline_enabled": true,
+  "manifest_version": 3,
+  "name": "Currency Exchange Rates",
+  "version": "1.0",
+  "offline_enabled": true,
   "permissions": ["storage", "activeTab", "contextMenus", "scripting"],
   "background": {
-    "service_worker": "background.js",
-    "type": "module"
+    "service_worker": "background.js"
   },
-    "host_permissions": [
-      "http://api.currencylayer.com/*"], 
+  "host_permissions": ["https://apilayer.net/*"], 
   "action": {
     "default_popup": "index.html"
-  }, "content_scripts": [
+  }, 
+  "content_scripts": [
     {
-        "js": ["content.js"],
-        "matches": [
-            "https://*/*"
-        ]
+        "js": ["content.js", "config2.js"],
+        "matches": ["https://*/*"],
+        "type": "module"
     }
 ]
 }

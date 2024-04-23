@@ -1,6 +1,3 @@
-import {convertCurrency, extractCurrencyAndAmount} from './chrome-extension-react-typescript-starter-main/public/convert.js'
-import createPopup from './chrome-extension-react-typescript-starter-main/public/content.js'
-
 // This function is called when the extension is installed or updated
 chrome.runtime.onInstalled.addListener(() => {
   // Create a context menu item
@@ -22,33 +19,6 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   }
 });
 
-
-
-function getGPTResponse(apiKey, message, sendResponse) {
-  let data = {
-    "model": "gpt-3.5-turbo",
-    "messages": [{"role": "user", "content": message}]
-  }
-  let requestBody = JSON.stringify(data);
-  fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": "Bearer " + apiKey,
-      "Content-Type": "application/json"
-    },
-    body: requestBody
-  }).then(res => res.json()).then((res) => {
-    var result = "No response";
-    if (res.choices) {
-      result = res.choices[0].message.content;
-    }
-    console.log("[Background] sending response: " + result);
-    sendResponse({ result: result });
-  }).catch(err => {
-    console.log("error: " + err);
-  })
-}
-
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 if (request.type === "getResponse") {
   console.log("[Background] Getting response");
@@ -57,32 +27,10 @@ if (request.type === "getResponse") {
     console.log("[Background] API_KEY: " + localApiKey);
     const selection = request.selection;
     console.log("[Background] selection: " + selection);
-    getGPTResponse(localApiKey, selection, sendResponse);
+    //getGPTResponse(localApiKey, selection, sendResponse);
   });
 }
 return true;
 });
 
 console.log("[Background] Loaded script");
-
-
-
-document.addEventListener("mouseup", function(event) {
-  var selection = window.getSelection();
-  var selectionText = selection.toString().trim();
-  console.log("[Content] selection: " + selection);
-  if (selectionText && selectionText !== "") {
-    var rect = selection.getRangeAt(0).getBoundingClientRect();
-    const selectedCurr = extractCurrencyAndAmount(selectionText); 
-    const result = convertCurrency(selectedCurr.number, selectedCurr.currency, "USD");
-    const popup = createPopup(result, rect);
-    document.body.appendChild(popup);
-    document.addEventListener("mousedown", function(event) {
-      var isClickInside = popup.contains(event.target);
-      if (!isClickInside) {
-          popup.parentNode.removeChild(popup);
-          document.removeEventListener("mousedown", arguments.callee);
-      }
-    });
-  }
-});

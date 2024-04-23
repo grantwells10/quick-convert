@@ -3,28 +3,29 @@ from bs4 import BeautifulSoup
 import json
 
 currency_wikipedia = 'https://en.wikipedia.org/wiki/List_of_circulating_currencies'
-
 response = requests.get(currency_wikipedia)
 
 soup = BeautifulSoup(response.text, 'html.parser')
+table = soup.find('table', class_='wikitable sortable mw-collapsible')
 
-table = soup.find_all('table', {'class': 'wikitable sortable'})[0] # get the first table with the class 'wikitable sortable'
-
-# extract the rows, skipping the header row
-rows = table.find_all('tr')[1:]
 currency_data = []
 
-for row in rows:
-    cols = row.find_all('td')
-    cols_text = [ele.text.strip() for ele in cols]
-    
-    if len(cols_text) >= 4:
-        currency_data.append({
-            'State/Territory': cols_text[0],
-            'Currency Name': cols_text[1],
-            'Symbol': cols_text[2],
-            'ISO Code': cols_text[3]
-        })
+for row in table.find_all('tr')[1:]:  # skips the first row which is the header
+    cells = row.find_all('td')
+    if cells:
+        currency_info = {
+            'State/Territory': cells[0].get_text(strip=True),
+            'Currency Name': cells[1].get_text(strip=True),
+            'Symbol': cells[2].get_text(strip=True) if len(cells) > 2 else '',
+            'ISO Code': cells[3].get_text(strip=True) if len(cells) > 3 else '',
+            'Fractional Unit': cells[4].get_text(strip=True) if len(cells) > 4 else '',
+            'Number to Basic': cells[5].get_text(strip=True) if len(cells) > 5 else ''
+        }
+        currency_data.append(currency_info)
 
-with open('currency_data.json', 'w', encoding='utf-8') as outfile:
-    json.dump(currency_data, outfile, ensure_ascii=False, indent=4)
+for currency in currency_data:
+    print(currency)
+
+with open('currency.json', 'w', encoding='utf-8') as f:
+    json.dump(currency_data, f, indent=4)
+

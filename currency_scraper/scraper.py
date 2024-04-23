@@ -8,7 +8,7 @@ response = requests.get(currency_wikipedia)
 
 soup = BeautifulSoup(response.text, 'html.parser')
 
-table = soup.find_all('table', {'class': 'wikitable sortable'})[0]
+table = soup.find_all('table', {'class': 'wikitable sortable'})[0] # get the first table with the class 'wikitable sortable'
 
 # extract the rows, skipping the header row
 rows = table.find_all('tr')[1:]

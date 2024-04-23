@@ -91,7 +91,7 @@ async function extractCurrencyAndAmount(text) {
 
     return {
         currency: currency ? currency[0] : null,
-        number: number
+        number: number ? number : null 
     };
 }
 

@@ -78,7 +78,9 @@ async function retrieveCache() {
 }
 
 async function extractCurrencyAndAmount(text) {
+    // Extract 3 letter currency symbol 
     const currencyRegex = /[A-Z]{3}/;
+    // Extract the amount
     const amountRegex = /[\d,]+\.?\d*/;
 
     const currency = text.match(currencyRegex);

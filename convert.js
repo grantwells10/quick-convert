@@ -16,7 +16,8 @@ async function fetchAndCacheRates() {
             data: data,
             timestamp: Date.now()
         }
-        localStorage.setItem('exchangeRates', JSON.stringify(entry));
+        // use chrome.storage.local to store the data, it automatically serializes the data
+        await chrome.storage.local.set({exchangeRates: entry});
         return data; 
     } catch (error) {
         console.log(error);
@@ -28,9 +29,6 @@ async function fetchAndCacheRates() {
 
 async function convertCurrency(amount, fromCurrency, toCurrency) {
     const rates = await retrieveCache('exchangeRates');
-    
-    // CHECK IF THE DATA IS OLDER THAN 8 HOURS WITH CACHING
-
     let conversionRate; 
     if (fromCurrency === "USD") {
         conversionRate = rates[`USD${toCurrency}`]; 
@@ -43,34 +41,40 @@ async function convertCurrency(amount, fromCurrency, toCurrency) {
 // Function to retrieve cached data or make a new fetch if expired or not there 
 
 async function retrieveCache() {
-    // attempt to retrieve the data from the cache
-    const data = localStorage.getItem('exchangeRates');
-
-    //no data to return, empty cache, fetch new data and cache it 
-    if (!data) {
-        return await fetchAndCacheRates(); 
-    }
-
-    // parse the data
-    const parsedData = JSON.parse(data);
-
-    // get current time 
-    const now = Date.now();
-    const timestamp = parsedData.timestamp; 
-
-    // if the data is older than 8 hours, fetch new data and cache it
-    if (now - timestamp > 28800000) {
-        // remove the old data, clean up step
-        localStorage.removeItem('exchangeRates');
-        return await fetchAndCacheRates(); 
-    } 
-
-    // else, return the data!
-    return parsedData.data;
+    return new Promise((resolve, reject) => {
+        // try to retrieve the data from the cache
+        chrome.storage.local.get(['exchangeRates'], function(output) {
+            // if chrome error, reject the promise
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+                return; 
+            } 
+            // try to fetch data from the API
+            const response = output.exchangeRates; 
+            // if nothing there, fetch and cache data 
+            if (!response) {
+                resolve(fetchAndCacheRates());
+                return; 
+            }
+            // else, check if its expired
+            const now = Date.now();
+            const timestamp = response.timestamp;
+            if (now - timestamp > 28800000) {
+                // remove the old data, clean up step, if older than 8 hours
+                chrome.storage.local.remove('exchangeRates', function() { 
+                    // check for error again
+                    if (chrome.runtime.lastError) {
+                        reject(chrome.runtime.lastError);
+                        return; 
+                    } 
+                    // fetch and cache new data
+                    resolve(fetchAndCacheRates());
+                })
+            } else {
+                // else, return the data 
+                resolve(response.data);
+            }
+    })}); 
 }
-
-(async () => {
-    console.log("Hello!");
-})(); 
 
 export default convertCurrency;

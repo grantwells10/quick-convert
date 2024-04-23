@@ -1,3 +1,6 @@
+import {convertCurrency, extractCurrencyAndAmount} from './chrome-extension-react-typescript-starter-main/public/convert.js'
+import createPopup from './chrome-extension-react-typescript-starter-main/public/content.js'
+
 // This function is called when the extension is installed or updated
 chrome.runtime.onInstalled.addListener(() => {
   // Create a context menu item
@@ -61,3 +64,25 @@ return true;
 });
 
 console.log("[Background] Loaded script");
+
+
+
+document.addEventListener("mouseup", function(event) {
+  var selection = window.getSelection();
+  var selectionText = selection.toString().trim();
+  console.log("[Content] selection: " + selection);
+  if (selectionText && selectionText !== "") {
+    var rect = selection.getRangeAt(0).getBoundingClientRect();
+    const selectedCurr = extractCurrencyAndAmount(selectionText); 
+    const result = convertCurrency(selectedCurr.number, selectedCurr.currency, "USD");
+    const popup = createPopup(result, rect);
+    document.body.appendChild(popup);
+    document.addEventListener("mousedown", function(event) {
+      var isClickInside = popup.contains(event.target);
+      if (!isClickInside) {
+          popup.parentNode.removeChild(popup);
+          document.removeEventListener("mousedown", arguments.callee);
+      }
+    });
+  }
+});

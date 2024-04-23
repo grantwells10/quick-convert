@@ -1,7 +1,5 @@
 import { API_KEY } from './config.js'; 
 
-console.log("[Content] this is content script")
-
 // Function to retrieve live exchange rates from the API and cache them
 
 async function fetchAndCacheRates() {
@@ -99,24 +97,4 @@ async function extractCurrencyAndAmount(text) {
     };
 }
 
-function createPopup(selectionText, position) {
-    var popup = document.createElement("div");
-    popup.style.position = "fixed";
-    popup.style.top = (position.top - 50) + "px"; // position it above the selection
-    popup.style.left = (position.left) + "px"; // align it with the left side of the selection
-    popup.style.backgroundColor = "#fff";
-    popup.style.border = "1px solid #000";
-    popup.style.padding = "10px";
-    
-    // Create a Popup div
-    var selected = document.createElement("div");
-    selected.textContent = selectionText;
-    popup.appendChild(selected);
-    
-    popup.id = "myPopup";
-
-    return popup;
-}
-
-
-
+export default convertCurrency;

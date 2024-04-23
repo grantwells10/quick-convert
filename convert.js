@@ -17,10 +17,10 @@ async function fetchAndCacheRates() {
             timestamp: Date.now()
         }
         localStorage.setItem('exchangeRates', JSON.stringify(entry));
-        return data; 
+        return data;
     } catch (error) {
         console.log(error);
-        return null; 
+        return null;
     }
 }
 
@@ -69,8 +69,26 @@ async function retrieveCache() {
     return parsedData.data;
 }
 
+async function extractCurrencyAndAmount(text) {
+    const currencyRegex = /[A-Z]{3}/;
+    const amountRegex = /[\d,]+\.?\d*/;
+
+    const currency = text.match(currencyRegex);
+    const amount = text.match(amountRegex);
+
+    let number = null;
+    if (amount) {
+        number = parseFloat(amount[0].replace(/,/g, ''));
+    }
+
+    return {
+        currency: currency ? currency[0] : null,
+        number: number
+    };
+}
+
 (async () => {
     console.log("Hello!");
-})(); 
+})();
 
 export default convertCurrency;

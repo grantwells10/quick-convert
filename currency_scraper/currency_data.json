@@ -1,176 +1,118 @@
 [
     {
-        "State/Territory": "Euro",
-        "Currency Name": "€",
-        "Symbol": "EUR",
-        "ISO Code": "Cent"
+        "Symbol": "€",
+        "Abbreviation": "EUR"
     },
     {
-        "State/Territory": "United States dollar",
-        "Currency Name": "$",
-        "Symbol": "USD",
-        "ISO Code": "Cent"
+        "Symbol": "$",
+        "Abbreviation": "USD"
     },
     {
-        "State/Territory": "Australian dollar",
-        "Currency Name": "$",
-        "Symbol": "AUD",
-        "ISO Code": "Cent"
+        "Symbol": "$",
+        "Abbreviation": "AUD"
     },
     {
-        "State/Territory": "Sterling",
-        "Currency Name": "£",
-        "Symbol": "GBP",
-        "ISO Code": "Penny"
+        "Symbol": "£",
+        "Abbreviation": "GBP"
     },
     {
-        "State/Territory": "Eastern Caribbean dollar",
-        "Currency Name": "$",
-        "Symbol": "XCD",
-        "ISO Code": "Cent"
+        "Symbol": "$",
+        "Abbreviation": "XCD"
     },
     {
-        "State/Territory": "West African CFA franc",
-        "Currency Name": "Fr, F.CFA",
-        "Symbol": "XOF",
-        "ISO Code": "Centime"
+        "Symbol": "Fr, F.CFA",
+        "Abbreviation": "XOF"
     },
     {
-        "State/Territory": "New Zealand dollar",
-        "Currency Name": "$",
-        "Symbol": "NZD",
-        "ISO Code": "Cent"
+        "Symbol": "$",
+        "Abbreviation": "NZD"
     },
     {
-        "State/Territory": "Norwegian krone",
-        "Currency Name": "kr",
-        "Symbol": "NOK",
-        "ISO Code": "Øre"
+        "Symbol": "kr",
+        "Abbreviation": "NOK"
     },
     {
-        "State/Territory": "Central African CFA franc",
-        "Currency Name": "Fr, F.CFA",
-        "Symbol": "XAF",
-        "ISO Code": "Centime"
+        "Symbol": "Fr, F.CFA",
+        "Abbreviation": "XAF"
     },
     {
-        "State/Territory": "South African rand",
-        "Currency Name": "R",
-        "Symbol": "ZAR",
-        "ISO Code": "Cent"
+        "Symbol": "R",
+        "Abbreviation": "ZAR"
     },
     {
-        "State/Territory": "CFP franc",
-        "Currency Name": "₣, F, or Fr",
-        "Symbol": "XPF",
-        "ISO Code": "Centime"
+        "Symbol": "₣, F, or Fr",
+        "Abbreviation": "XPF"
     },
     {
-        "State/Territory": "Chilean peso",
-        "Currency Name": "$",
-        "Symbol": "CLP",
-        "ISO Code": "Centavo"
+        "Symbol": "$",
+        "Abbreviation": "CLP"
     },
     {
-        "State/Territory": "Danish krone",
-        "Currency Name": "kr",
-        "Symbol": "DKK",
-        "ISO Code": "Øre"
+        "Symbol": "kr",
+        "Abbreviation": "DKK"
     },
     {
-        "State/Territory": "Indian rupee",
-        "Currency Name": "₹",
-        "Symbol": "INR",
-        "ISO Code": "Paisa"
+        "Symbol": "₹",
+        "Abbreviation": "INR"
     },
     {
-        "State/Territory": "Russian rouble",
-        "Currency Name": "₽",
-        "Symbol": "RUB",
-        "ISO Code": "Kopeck"
+        "Symbol": "₽",
+        "Abbreviation": "RUB"
     },
     {
-        "State/Territory": "Turkish lira",
-        "Currency Name": "₺",
-        "Symbol": "TRY",
-        "ISO Code": "Kuruş"
+        "Symbol": "₺",
+        "Abbreviation": "TRY"
     },
     {
-        "State/Territory": "Algerian dinar",
-        "Currency Name": "DA",
-        "Symbol": "DZD",
-        "ISO Code": "Centime"
+        "Symbol": "DA",
+        "Abbreviation": "DZD"
     },
     {
-        "State/Territory": "Mauritanian ouguiya",
-        "Currency Name": "UM",
-        "Symbol": "MRU",
-        "ISO Code": "Khoums"
+        "Symbol": "UM",
+        "Abbreviation": "MRU"
     },
     {
-        "State/Territory": "Moroccan dirham",
-        "Currency Name": "DH",
-        "Symbol": "MAD",
-        "ISO Code": "Centime"
+        "Symbol": "DH",
+        "Abbreviation": "MAD"
     },
     {
-        "State/Territory": "Israeli new shekel",
-        "Currency Name": "₪",
-        "Symbol": "ILS",
-        "ISO Code": "Agora"
+        "Symbol": "₪",
+        "Abbreviation": "ILS"
     },
     {
-        "State/Territory": "Jordanian dinar",
-        "Currency Name": "د.أ",
-        "Symbol": "JOD",
-        "ISO Code": "Piastre"
+        "Symbol": "د.أ",
+        "Abbreviation": "JOD"
     },
     {
-        "State/Territory": "Brunei dollar",
-        "Currency Name": "B$",
-        "Symbol": "BND",
-        "ISO Code": "Sen"
+        "Symbol": "B$",
+        "Abbreviation": "BND"
     },
     {
-        "State/Territory": "Singapore dollar",
-        "Currency Name": "S$",
-        "Symbol": "SGD",
-        "ISO Code": "Cent"
+        "Symbol": "S$",
+        "Abbreviation": "SGD"
     },
     {
-        "State/Territory": "Hong Kong dollar",
-        "Currency Name": "HK$",
-        "Symbol": "HKD",
-        "ISO Code": "Cent"
+        "Symbol": "HK$",
+        "Abbreviation": "HKD"
     },
     {
-        "State/Territory": "Swiss franc",
-        "Currency Name": "Fr",
-        "Symbol": "CHF",
-        "ISO Code": "Rappen"
+        "Symbol": "Fr",
+        "Abbreviation": "CHF"
     },
     {
-        "State/Territory": "Netherlands Antillean guilder",
-        "Currency Name": "ƒ, NAƒ, NAf, or f",
-        "Symbol": "ANG",
-        "ISO Code": "Cent"
+        "Symbol": "ƒ, NAƒ, NAf, or f",
+        "Abbreviation": "ANG"
     },
     {
-        "State/Territory": "Saint Helena pound",
-        "Currency Name": "£",
-        "Symbol": "SHP",
-        "ISO Code": "Penny"
+        "Symbol": "£",
+        "Abbreviation": "SHP"
     },
     {
-        "State/Territory": "Falkland Islands pound",
-        "Currency Name": "£",
-        "Symbol": "FKP",
-        "ISO Code": "Penny"
+        "Symbol": "£",
+        "Abbreviation": "FKP"
     },
     {
-        "State/Territory": "Canadian Dollar",
-        "Currency Name": "$",
-        "Symbol": "CAD",
-        "ISO Code": "Cent"
+        "Symbol": "$",
+        "Abbreviation": "CAD"
     }
 ]

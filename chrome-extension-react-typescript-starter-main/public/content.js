@@ -25,7 +25,7 @@ async function fetchAndCacheRates() {
         return data.quotes; 
     } catch (error) {
         console.log("CANT FETCH DATA");
-        return null;
+        throw(error);
     }
 }
 
@@ -49,45 +49,21 @@ async function convertCurrency(amount, fromCurrency, toCurrency) {
 // Function to retrieve cached data or make a new fetch if expired or not there 
 
 async function retrieveCache() {
-    return new Promise((resolve, reject) => {
-        // try to retrieve the data from the cache
-        chrome.storage.local.get(['exchangeRates'], function(output) {
-            console.log("CHeckpoint1");
-            // if chrome error, reject the promise
-            if (chrome.runtime.lastError) {
-                console.log("CHeckpoint2");
-                reject(chrome.runtime.lastError);
-                return; 
-            } 
-            // try to fetch data from the API
-            const response = output.exchangeRates; 
-            // if nothing there, fetch and cache data 
-            if (!response.data) {
-                console.log("No data found, doing initial API call...");
-                resolve(fetchAndCacheRates());
-                return; 
-            }
-            // else, check if its expired
-            const now = Date.now();
-            const timestamp = response.timestamp;
-            console.log("CHeckpoint3");
-            if (now - timestamp > 100) {
-                console.log("CHeckpoint4");
-                // remove the old data, clean up step, if older than 8 hours
-                console.log("Data expired, doing another API call..."); 
-                chrome.storage.local.remove('exchangeRates', function() { 
-                    // check for error again
-                    if (chrome.runtime.lastError) {
-                        reject(chrome.runtime.lastError);
-                        return; 
-                    } 
-                })
-                resolve(fetchAndCacheRates());
-            } else {
-                // else, return the data 
-                resolve(response.data);
-            }
-    })}); 
+    let output = await chrome.storage.local.get(['exchangeRates']);
+    const response = output.exchangeRates;
+    if (!response || !response.data) {
+        console.log("No data found, doing initial API call...");
+        return await fetchAndCacheRates();
+    }
+    const now = Date.now();
+    const timestamp = response.timestamp;
+    if (now - timestamp > 28800000) {
+        console.log("Data expired, doing another API call...");
+        await chrome.storage.local.remove('exchangeRates');
+        return await fetchAndCacheRates(); 
+    }
+    console.log("Returning cached data...");
+    return response.data; 
 }
 
 async function extractCurrencyAndAmount(text) {

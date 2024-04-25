@@ -133,13 +133,13 @@
     },
     {
         "State/Territory": "Singapore dollar",
-        "Currency Name": "$, S$",
+        "Currency Name": "S$",
         "Symbol": "SGD",
         "ISO Code": "Cent"
     },
     {
         "State/Territory": "Hong Kong dollar",
-        "Currency Name": "$, HK$ or 元",
+        "Currency Name": "HK$",
         "Symbol": "HKD",
         "ISO Code": "Cent"
     },

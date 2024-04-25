@@ -1,2 +1,0 @@
-const API_KEY= "7d6bb84d9288165d2be2071f7878673b6"
-export { API_KEY }

@@ -6,7 +6,7 @@ console.log("[Content] this is content script")
 
 async function fetchAndCacheRates() {
     try {
-        const url = `https://apilayer.net/api/live?access_key=2ba7d59224fbc76168b363c9ac91fe82`;
+        const url = `https://apilayer.net/api/live?access_key=4ccded65216ed540d9d8cf0972afbf90`;
         const response = await fetch(url);
         if (!response) { 
             throw new Error("Failed to fetch data");
@@ -18,9 +18,11 @@ async function fetchAndCacheRates() {
             data: data.quotes,
             timestamp: Date.now()
         }
+        console.log("Printing data....: ")
+        console.log(data.quotes); 
         // use chrome.storage.local to store the data, it automatically serializes the data
         await chrome.storage.local.set({exchangeRates: entry});
-        return data; 
+        return data.quotes; 
     } catch (error) {
         console.log("CANT FETCH DATA");
         return null;
@@ -69,7 +71,7 @@ async function retrieveCache() {
             const now = Date.now();
             const timestamp = response.timestamp;
             console.log("CHeckpoint3");
-            if (now - timestamp > 28800000) {
+            if (now - timestamp > 100) {
                 console.log("CHeckpoint4");
                 // remove the old data, clean up step, if older than 8 hours
                 console.log("Data expired, doing another API call..."); 
@@ -79,9 +81,8 @@ async function retrieveCache() {
                         reject(chrome.runtime.lastError);
                         return; 
                     } 
-                    // fetch and cache new data
-                    resolve(fetchAndCacheRates());
                 })
+                resolve(fetchAndCacheRates());
             } else {
                 // else, return the data 
                 resolve(response.data);

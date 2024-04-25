@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Hello from "./components/Hello";
-import Currencies from "./currency.jsx";
+import currencyData from "./currency_data.json";
 
 function App() {
-  const [currencies, setCurrencies] = useState<CurrencyOption[]>([]);
+  const [currencies, setCurrencies] = useState([]);
 
   useEffect(() => {
     // Load currency data from the JSON file
-    setCurrencies(currencies);
+    setCurrencies(currencyData);
   }, []);
 
   return (
@@ -16,9 +15,9 @@ function App() {
       <h1>Target Currency</h1>
       <select>
         {/* Use map function to generate options */}
-        {Currencies.currency.map((currency, index) => (
-          <option key={index} value={currency.Value}>
-            {currency.Key}
+        {currencies.map((currency, index) => (
+          <option key={index} value={currency.Abbreviation}>
+            {currency.Abbreviation}
           </option>
         ))}
       </select>

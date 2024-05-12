@@ -1,118 +1,478 @@
 [
     {
+        "Symbol": "$",
+        "Abbreviation": "USD"
+    },
+    {
+        "Symbol": "$",
+        "Abbreviation": "CAD"
+    },
+    {
         "Symbol": "€",
         "Abbreviation": "EUR"
     },
     {
+        "Symbol": "دإ",
+        "Abbreviation": "AED"
+    },
+    {
+        "Symbol": "؋",
+        "Abbreviation": "AFN"
+    },
+    {
+        "Symbol": "Lek",
+        "Abbreviation": "ALL"
+    },
+    {
+        "Symbol": "դր",
+        "Abbreviation": "AMD"
+    },
+    {
         "Symbol": "$",
-        "Abbreviation": "USD"
+        "Abbreviation": "ARS"
     },
     {
         "Symbol": "$",
         "Abbreviation": "AUD"
     },
     {
-        "Symbol": "£",
-        "Abbreviation": "GBP"
+        "Symbol": "ман",
+        "Abbreviation": "AZN"
+    },
+    {
+        "Symbol": "KM",
+        "Abbreviation": "BAM"
+    },
+    {
+        "Symbol": "৳",
+        "Abbreviation": "BDT"
+    },
+    {
+        "Symbol": "лв",
+        "Abbreviation": "BGN"
+    },
+    {
+        "Symbol": "دب",
+        "Abbreviation": "BHD"
+    },
+    {
+        "Symbol": "FBu",
+        "Abbreviation": "BIF"
     },
     {
         "Symbol": "$",
-        "Abbreviation": "XCD"
+        "Abbreviation": "BND"
     },
     {
-        "Symbol": "Fr, F.CFA",
-        "Abbreviation": "XOF"
+        "Symbol": "Bs",
+        "Abbreviation": "BOB"
+    },
+    {
+        "Symbol": "R$",
+        "Abbreviation": "BRL"
+    },
+    {
+        "Symbol": "P",
+        "Abbreviation": "BWP"
+    },
+    {
+        "Symbol": "руб",
+        "Abbreviation": "BYN"
     },
     {
         "Symbol": "$",
-        "Abbreviation": "NZD"
+        "Abbreviation": "BZD"
     },
     {
-        "Symbol": "kr",
-        "Abbreviation": "NOK"
+        "Symbol": "FrCD",
+        "Abbreviation": "CDF"
     },
     {
-        "Symbol": "Fr, F.CFA",
-        "Abbreviation": "XAF"
-    },
-    {
-        "Symbol": "R",
-        "Abbreviation": "ZAR"
-    },
-    {
-        "Symbol": "₣, F, or Fr",
-        "Abbreviation": "XPF"
+        "Symbol": "CHF",
+        "Abbreviation": "CHF"
     },
     {
         "Symbol": "$",
         "Abbreviation": "CLP"
     },
     {
+        "Symbol": "CN¥",
+        "Abbreviation": "CNY"
+    },
+    {
+        "Symbol": "$",
+        "Abbreviation": "COP"
+    },
+    {
+        "Symbol": "₡",
+        "Abbreviation": "CRC"
+    },
+    {
+        "Symbol": "CV$",
+        "Abbreviation": "CVE"
+    },
+    {
+        "Symbol": "Kč",
+        "Abbreviation": "CZK"
+    },
+    {
+        "Symbol": "Fdj",
+        "Abbreviation": "DJF"
+    },
+    {
         "Symbol": "kr",
         "Abbreviation": "DKK"
     },
     {
-        "Symbol": "₹",
-        "Abbreviation": "INR"
+        "Symbol": "RD$",
+        "Abbreviation": "DOP"
     },
     {
-        "Symbol": "₽",
-        "Abbreviation": "RUB"
-    },
-    {
-        "Symbol": "₺",
-        "Abbreviation": "TRY"
-    },
-    {
-        "Symbol": "DA",
+        "Symbol": "دج",
         "Abbreviation": "DZD"
     },
     {
-        "Symbol": "UM",
-        "Abbreviation": "MRU"
+        "Symbol": "kr",
+        "Abbreviation": "EEK"
     },
     {
-        "Symbol": "DH",
-        "Abbreviation": "MAD"
+        "Symbol": "جم",
+        "Abbreviation": "EGP"
+    },
+    {
+        "Symbol": "Nfk",
+        "Abbreviation": "ERN"
+    },
+    {
+        "Symbol": "Br",
+        "Abbreviation": "ETB"
+    },
+    {
+        "Symbol": "£",
+        "Abbreviation": "GBP"
+    },
+    {
+        "Symbol": "GEL",
+        "Abbreviation": "GEL"
+    },
+    {
+        "Symbol": "₵",
+        "Abbreviation": "GHS"
+    },
+    {
+        "Symbol": "FG",
+        "Abbreviation": "GNF"
+    },
+    {
+        "Symbol": "Q",
+        "Abbreviation": "GTQ"
+    },
+    {
+        "Symbol": "$",
+        "Abbreviation": "HKD"
+    },
+    {
+        "Symbol": "L",
+        "Abbreviation": "HNL"
+    },
+    {
+        "Symbol": "kn",
+        "Abbreviation": "HRK"
+    },
+    {
+        "Symbol": "Ft",
+        "Abbreviation": "HUF"
+    },
+    {
+        "Symbol": "Rp",
+        "Abbreviation": "IDR"
     },
     {
         "Symbol": "₪",
         "Abbreviation": "ILS"
     },
     {
-        "Symbol": "د.أ",
-        "Abbreviation": "JOD"
+        "Symbol": "টকা",
+        "Abbreviation": "INR"
     },
     {
-        "Symbol": "B$",
-        "Abbreviation": "BND"
+        "Symbol": "دع",
+        "Abbreviation": "IQD"
     },
     {
-        "Symbol": "S$",
-        "Abbreviation": "SGD"
+        "Symbol": "﷼",
+        "Abbreviation": "IRR"
     },
     {
-        "Symbol": "HK$",
-        "Abbreviation": "HKD"
-    },
-    {
-        "Symbol": "Fr",
-        "Abbreviation": "CHF"
-    },
-    {
-        "Symbol": "ƒ, NAƒ, NAf, or f",
-        "Abbreviation": "ANG"
-    },
-    {
-        "Symbol": "£",
-        "Abbreviation": "SHP"
-    },
-    {
-        "Symbol": "£",
-        "Abbreviation": "FKP"
+        "Symbol": "kr",
+        "Abbreviation": "ISK"
     },
     {
         "Symbol": "$",
-        "Abbreviation": "CAD"
+        "Abbreviation": "JMD"
+    },
+    {
+        "Symbol": "دأ",
+        "Abbreviation": "JOD"
+    },
+    {
+        "Symbol": "￥",
+        "Abbreviation": "JPY"
+    },
+    {
+        "Symbol": "Ksh",
+        "Abbreviation": "KES"
+    },
+    {
+        "Symbol": "៛",
+        "Abbreviation": "KHR"
+    },
+    {
+        "Symbol": "FC",
+        "Abbreviation": "KMF"
+    },
+    {
+        "Symbol": "₩",
+        "Abbreviation": "KRW"
+    },
+    {
+        "Symbol": "دك",
+        "Abbreviation": "KWD"
+    },
+    {
+        "Symbol": "тңг",
+        "Abbreviation": "KZT"
+    },
+    {
+        "Symbol": "لل",
+        "Abbreviation": "LBP"
+    },
+    {
+        "Symbol": "SL Re",
+        "Abbreviation": "LKR"
+    },
+    {
+        "Symbol": "Lt",
+        "Abbreviation": "LTL"
+    },
+    {
+        "Symbol": "Ls",
+        "Abbreviation": "LVL"
+    },
+    {
+        "Symbol": "دل",
+        "Abbreviation": "LYD"
+    },
+    {
+        "Symbol": "دم",
+        "Abbreviation": "MAD"
+    },
+    {
+        "Symbol": "MDL",
+        "Abbreviation": "MDL"
+    },
+    {
+        "Symbol": "MGA",
+        "Abbreviation": "MGA"
+    },
+    {
+        "Symbol": "MKD",
+        "Abbreviation": "MKD"
+    },
+    {
+        "Symbol": "K",
+        "Abbreviation": "MMK"
+    },
+    {
+        "Symbol": "MOP$",
+        "Abbreviation": "MOP"
+    },
+    {
+        "Symbol": "MURs",
+        "Abbreviation": "MUR"
+    },
+    {
+        "Symbol": "$",
+        "Abbreviation": "MXN"
+    },
+    {
+        "Symbol": "RM",
+        "Abbreviation": "MYR"
+    },
+    {
+        "Symbol": "MTn",
+        "Abbreviation": "MZN"
+    },
+    {
+        "Symbol": "N$",
+        "Abbreviation": "NAD"
+    },
+    {
+        "Symbol": "₦",
+        "Abbreviation": "NGN"
+    },
+    {
+        "Symbol": "C$",
+        "Abbreviation": "NIO"
+    },
+    {
+        "Symbol": "kr",
+        "Abbreviation": "NOK"
+    },
+    {
+        "Symbol": "नेरू",
+        "Abbreviation": "NPR"
+    },
+    {
+        "Symbol": "$",
+        "Abbreviation": "NZD"
+    },
+    {
+        "Symbol": "رع",
+        "Abbreviation": "OMR"
+    },
+    {
+        "Symbol": "B/.",
+        "Abbreviation": "PAB"
+    },
+    {
+        "Symbol": "S/.",
+        "Abbreviation": "PEN"
+    },
+    {
+        "Symbol": "₱",
+        "Abbreviation": "PHP"
+    },
+    {
+        "Symbol": "₨",
+        "Abbreviation": "PKR"
+    },
+    {
+        "Symbol": "zł",
+        "Abbreviation": "PLN"
+    },
+    {
+        "Symbol": "₲",
+        "Abbreviation": "PYG"
+    },
+    {
+        "Symbol": "رق",
+        "Abbreviation": "QAR"
+    },
+    {
+        "Symbol": "RON",
+        "Abbreviation": "RON"
+    },
+    {
+        "Symbol": "дин",
+        "Abbreviation": "RSD"
+    },
+    {
+        "Symbol": "₽",
+        "Abbreviation": "RUB"
+    },
+    {
+        "Symbol": "FR",
+        "Abbreviation": "RWF"
+    },
+    {
+        "Symbol": "رس",
+        "Abbreviation": "SAR"
+    },
+    {
+        "Symbol": "SDG",
+        "Abbreviation": "SDG"
+    },
+    {
+        "Symbol": "kr",
+        "Abbreviation": "SEK"
+    },
+    {
+        "Symbol": "$",
+        "Abbreviation": "SGD"
+    },
+    {
+        "Symbol": "Ssh",
+        "Abbreviation": "SOS"
+    },
+    {
+        "Symbol": "لس",
+        "Abbreviation": "SYP"
+    },
+    {
+        "Symbol": "฿",
+        "Abbreviation": "THB"
+    },
+    {
+        "Symbol": "دت",
+        "Abbreviation": "TND"
+    },
+    {
+        "Symbol": "T$",
+        "Abbreviation": "TOP"
+    },
+    {
+        "Symbol": "TL",
+        "Abbreviation": "TRY"
+    },
+    {
+        "Symbol": "$",
+        "Abbreviation": "TTD"
+    },
+    {
+        "Symbol": "NT$",
+        "Abbreviation": "TWD"
+    },
+    {
+        "Symbol": "TSh",
+        "Abbreviation": "TZS"
+    },
+    {
+        "Symbol": "₴",
+        "Abbreviation": "UAH"
+    },
+    {
+        "Symbol": "USh",
+        "Abbreviation": "UGX"
+    },
+    {
+        "Symbol": "$",
+        "Abbreviation": "UYU"
+    },
+    {
+        "Symbol": "UZS",
+        "Abbreviation": "UZS"
+    },
+    {
+        "Symbol": "Bs.F.",
+        "Abbreviation": "VEF"
+    },
+    {
+        "Symbol": "₫",
+        "Abbreviation": "VND"
+    },
+    {
+        "Symbol": "FCFA",
+        "Abbreviation": "XAF"
+    },
+    {
+        "Symbol": "CFA",
+        "Abbreviation": "XOF"
+    },
+    {
+        "Symbol": "ري",
+        "Abbreviation": "YER"
+    },
+    {
+        "Symbol": "R",
+        "Abbreviation": "ZAR"
+    },
+    {
+        "Symbol": "ZK",
+        "Abbreviation": "ZMK"
+    },
+    {
+        "Symbol": "ZWL$",
+        "Abbreviation": "ZWL"
     }
 ]

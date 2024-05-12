@@ -1,6 +1,6 @@
-//import {API_KEY} from "/config2.js";
-
 console.log("[Content] this is content script")
+
+let defaultToCurrency = "USD";  // Default target currency
 
 // Function to retrieve live exchange rates from the API and cache them
 
@@ -66,6 +66,16 @@ async function retrieveCache() {
     return response.data; 
 }
 
+// Update the default currency from chrome.storage.local
+async function updateCurrencyFromStorage() {
+    const data = await chrome.storage.local.get(['selectedCurrency']);
+    if (data.selectedCurrency) {
+        defaultToCurrency = data.selectedCurrency;
+        console.log("[Content] Updated default currency to:", defaultToCurrency);
+    }
+}
+
+// Parse currecny ammount and symbol from selected text
 async function extractCurrencyAndAmount(text) {
     // Extract 3 letter currency symbol 
     const currencyRegex = /[A-Z]{3}/;
@@ -97,7 +107,7 @@ function createPopup(selectionText, position) {
     
     // Create a Popup div
     var selected = document.createElement("div");
-    selected.textContent = selectionText;
+    selected.textContent = defaultToCurrency + ' ' + selectionText;
     popup.appendChild(selected);
     
     popup.id = "myPopup";
@@ -112,9 +122,11 @@ document.addEventListener("mouseup", async (event) => {
     if (selectionText && selectionText !== "") {
       var rect = selection.getRangeAt(0).getBoundingClientRect();
       try {
+        // get target currency from storage
+        await updateCurrencyFromStorage();
         const selectedCurr = await extractCurrencyAndAmount(selectionText); 
-        const result = await convertCurrency(selectedCurr.number, selectedCurr.currency, "USD");
-        const popup = createPopup(result, rect);
+        const result = await convertCurrency(selectedCurr.number, selectedCurr.currency, defaultToCurrency);
+        const popup = createPopup(result.toFixed(2), rect);
         document.body.appendChild(popup);
         document.addEventListener("mousedown", function(event) {
           var isClickInside = popup.contains(event.target);

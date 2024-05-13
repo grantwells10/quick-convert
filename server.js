@@ -9,7 +9,7 @@ app.use(express.json());
 app.get('/api', async (req, res) => {
     const url = `https://apilayer.net/api/live`;
     try {
-        const response = axios.get(url, {
+        const response = await axios.get(url, {
             params: {
                 access_key: process.env.API_KEY
             }
@@ -22,5 +22,9 @@ app.get('/api', async (req, res) => {
     }
 });
 
+// Initliaze the server
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
 
 

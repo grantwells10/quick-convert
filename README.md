@@ -23,7 +23,7 @@ The Currency Converter Chrome Extension allows users to highlight a currency and
 2. Install dependencies:
 
    ```bash
-   cd chrome-extension-text-collector
+   cd currency-converter
    npm install
    ```
 

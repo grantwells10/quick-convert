@@ -6,7 +6,7 @@ let defaultToCurrency = "USD";  // Default target currency
 
 async function fetchAndCacheRates() {
     try {
-        const url = `https://apilayer.net/api/live?access_key=4ccded65216ed540d9d8cf0972afbf90`;
+        const url = `https://currency-converter-e1ym.onrender.com/api`;
         const response = await fetch(url);
         if (!response) { 
             throw new Error("Failed to fetch data");

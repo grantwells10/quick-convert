@@ -2,6 +2,104 @@ console.log("[Content] this is content script")
 
 let defaultToCurrency = "USD";  // Default target currency
 
+// SYMBOLS MAPPED TO CURRENCY CODES (from https://www.xe.com/symbols/)
+// Duplicate symbols removed, kept the most common
+
+const currencyData = [
+    { "Symbol": "$", "Abbreviation": "USD" },
+    { "Symbol": "€", "Abbreviation": "EUR" },
+    { "Symbol": "دإ", "Abbreviation": "AED" },
+    { "Symbol": "؋", "Abbreviation": "AFN" },
+    { "Symbol": "Lek", "Abbreviation": "ALL" },
+    { "Symbol": "դր", "Abbreviation": "AMD" },
+    { "Symbol": "ман", "Abbreviation": "AZN" },
+    { "Symbol": "KM", "Abbreviation": "BAM" },
+    { "Symbol": "৳", "Abbreviation": "BDT" },
+    { "Symbol": "лв", "Abbreviation": "BGN" },
+    { "Symbol": "دب", "Abbreviation": "BHD" },
+    { "Symbol": "FBu", "Abbreviation": "BIF" },
+    { "Symbol": "Bs", "Abbreviation": "BOB" },
+    { "Symbol": "R$", "Abbreviation": "BRL" },
+    { "Symbol": "P", "Abbreviation": "BWP" },
+    { "Symbol": "руб", "Abbreviation": "BYN" },
+    { "Symbol": "FrCD", "Abbreviation": "CDF" },
+    { "Symbol": "CHF", "Abbreviation": "CHF" },
+    { "Symbol": "CN¥", "Abbreviation": "CNY" },
+    { "Symbol": "₡", "Abbreviation": "CRC" },
+    { "Symbol": "CV$", "Abbreviation": "CVE" },
+    { "Symbol": "Kč", "Abbreviation": "CZK" },
+    { "Symbol": "Fdj", "Abbreviation": "DJF" },
+    { "Symbol": "kr", "Abbreviation": "DKK" },
+    { "Symbol": "RD$", "Abbreviation": "DOP" },
+    { "Symbol": "دج", "Abbreviation": "DZD" },
+    { "Symbol": "جم", "Abbreviation": "EGP" },
+    { "Symbol": "Nfk", "Abbreviation": "ERN" },
+    { "Symbol": "Br", "Abbreviation": "ETB" },
+    { "Symbol": "£", "Abbreviation": "GBP" },
+    { "Symbol": "GEL", "Abbreviation": "GEL" },
+    { "Symbol": "₵", "Abbreviation": "GHS" },
+    { "Symbol": "FG", "Abbreviation": "GNF" },
+    { "Symbol": "Q", "Abbreviation": "GTQ" },
+    { "Symbol": "L", "Abbreviation": "HNL" },
+    { "Symbol": "kn", "Abbreviation": "HRK" },
+    { "Symbol": "Ft", "Abbreviation": "HUF" },
+    { "Symbol": "Rp", "Abbreviation": "IDR" },
+    { "Symbol": "₪", "Abbreviation": "ILS" },
+    { "Symbol": "টকা", "Abbreviation": "INR" },
+    { "Symbol": "دع", "Abbreviation": "IQD" },
+    { "Symbol": "﷼", "Abbreviation": "IRR" },
+    { "Symbol": "دأ", "Abbreviation": "JOD" },
+    { "Symbol": "￥", "Abbreviation": "JPY" },
+    { "Symbol": "Ksh", "Abbreviation": "KES" },
+    { "Symbol": "៛", "Abbreviation": "KHR" },
+    { "Symbol": "FC", "Abbreviation": "KMF" },
+    { "Symbol": "₩", "Abbreviation": "KRW" },
+    { "Symbol": "دك", "Abbreviation": "KWD" },
+    { "Symbol": "тңг", "Abbreviation": "KZT" },
+    { "Symbol": "لل", "Abbreviation": "LBP" },
+    { "Symbol": "SL Re", "Abbreviation": "LKR" },
+    { "Symbol": "Lt", "Abbreviation": "LTL" },
+    { "Symbol": "Ls", "Abbreviation": "LVL" },
+    { "Symbol": "دل", "Abbreviation": "LYD" },
+    { "Symbol": "دم", "Abbreviation": "MAD" },
+    { "Symbol": "K", "Abbreviation": "MMK" },
+    { "Symbol": "RM", "Abbreviation": "MYR" },
+    { "Symbol": "MTn", "Abbreviation": "MZN" },
+    { "Symbol": "N$", "Abbreviation": "NAD" },
+    { "Symbol": "₦", "Abbreviation": "NGN" },
+    { "Symbol": "C$", "Abbreviation": "NIO" },
+    { "Symbol": "नेरू", "Abbreviation": "NPR" },
+    { "Symbol": "رع", "Abbreviation": "OMR" },
+    { "Symbol": "B/.", "Abbreviation": "PAB" },
+    { "Symbol": "S/.", "Abbreviation": "PEN" },
+    { "Symbol": "₱", "Abbreviation": "PHP" },
+    { "Symbol": "₨", "Abbreviation": "PKR" },
+    { "Symbol": "zł", "Abbreviation": "PLN" },
+    { "Symbol": "₲", "Abbreviation": "PYG" },
+    { "Symbol": "رق", "Abbreviation": "QAR" },
+    { "Symbol": "дин", "Abbreviation": "RSD" },
+    { "Symbol": "₽", "Abbreviation": "RUB" },
+    { "Symbol": "FR", "Abbreviation": "RWF" },
+    { "Symbol": "رس", "Abbreviation": "SAR" },
+    { "Symbol": "Ssh", "Abbreviation": "SOS" },
+    { "Symbol": "لس", "Abbreviation": "SYP" },
+    { "Symbol": "฿", "Abbreviation": "THB" },
+    { "Symbol": "دت", "Abbreviation": "TND" },
+    { "Symbol": "T$", "Abbreviation": "TOP" },
+    { "Symbol": "TL", "Abbreviation": "TRY" },
+    { "Symbol": "NT$", "Abbreviation": "TWD" },
+    { "Symbol": "TSh", "Abbreviation": "TZS" },
+    { "Symbol": "₴", "Abbreviation": "UAH" },
+    { "Symbol": "USh", "Abbreviation": "UGX" },
+    { "Symbol": "Bs.F.", "Abbreviation": "VEF" },
+    { "Symbol": "₫", "Abbreviation": "VND" },
+    { "Symbol": "FCFA", "Abbreviation": "XAF" },
+    { "Symbol": "CFA", "Abbreviation": "XOF" },
+    { "Symbol": "ري", "Abbreviation": "YER" },
+    { "Symbol": "R", "Abbreviation": "ZAR" },
+    { "Symbol": "ZK", "Abbreviation": "ZMK" },
+  ];
+
 // Function to retrieve live exchange rates from the API and cache them
 
 async function fetchAndCacheRates() {
@@ -77,23 +175,33 @@ async function updateCurrencyFromStorage() {
 
 // Parse currecny ammount and symbol from selected text
 async function extractCurrencyAndAmount(text) {
-    // Extract 3 letter currency symbol 
-    const currencyRegex = /[A-Z]{3}/;
     // Extract the amount
     const amountRegex = /[\d,]+\.?\d*/;
-
-    const currency = text.match(currencyRegex);
     const amount = text.match(amountRegex);
-
     let number = null;
     if (amount) {
         number = parseFloat(amount[0].replace(/,/g, ''));
     }
 
-    return {
-        currency: currency ? currency[0] : null,
-        number: number ? number : null 
-    };
+    // First, try to extract the three letter currency code
+    const currencyRegex = /[A-Z]{3}/;
+    const currency = text.match(currencyRegex);
+    if (currency) {
+        return {
+            currency: currency[0], 
+            number: number
+        };
+    } 
+    // If not, extract based off the keys in curreny_data.json
+    for (let i = 0; i < currencyData.length; i++) {
+        if (text.includes(currencyData[i].Symbol)) {
+            return {
+                currency: currencyData[i].Abbreviation, 
+                number: number
+            };
+        }
+    }
+
 }
 
 function createPopup(selectionText, position) {

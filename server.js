@@ -1,10 +1,13 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 const app = express();
 
 const port = process.env.PORT || 4000; // PORT variable from Render
 
 app.use(express.json());
+// Enables CORS for all routes
+app.use(cors());
 
 app.get('/api', async (req, res) => {
     const url = `https://apilayer.net/api/live`;

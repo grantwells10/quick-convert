@@ -2,7 +2,7 @@
 
 The Currency Converter Chrome Extension allows users to highlight a currency and price on a webpage and it is converted into the desired target currency in a popup. The dropdown menu for this Chrome Extension allows users select the target currency. This Chrome extension uses [React](https://react.dev/) with TypeScript and Webpack, [storage](https://developer.chrome.com/docs/extensions/reference/api/storage), [contextMenus](https://developer.chrome.com/docs/extensions/reference/api/contextMenus), and the [currencylayer API](https://currencylayer.com). 
 
-## Visit Our Page
+### Visit Our Page
 
 https://hrizwan3.github.io/QuickConvert/
 

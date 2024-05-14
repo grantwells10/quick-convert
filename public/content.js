@@ -104,9 +104,12 @@ const currencyData = [
 
 async function fetchAndCacheRates() {
     try {
+        console.log("Fetching data...");
         const url = `https://currency-converter-e1ym.onrender.com/api`;
         const response = await fetch(url);
+        console.log("Suppppp data...");
         if (!response) { 
+            console.log("Failed to fetch data");
             throw new Error("Failed to fetch data");
         }
         // only get the quotes
@@ -176,25 +179,96 @@ async function updateCurrencyFromStorage() {
 // Parse currecny ammount and symbol from selected text
 async function extractCurrencyAndAmount(text) {
     // Extract the amount
-    const amountRegex = /[\d,]+\.?\d*/;
+    const amountRegex = /[\d,\.]+/;
     const amount = text.match(amountRegex);
     let number = null;
-    if (amount) {
-        number = parseFloat(amount[0].replace(/,/g, ''));
-    }
 
-    // First, try to extract the three letter currency code
+    // Handle the various cases of commas and periods (ex 1.000,00 or 1,000.00)
+
+    if (amount) {
+        const normalizedAmount = amount.map(a => {
+            // Case 1: Both commas and periods are included
+            if (a.includes(',') && a.includes('.')) {
+                // Case 1a: Comma comes before period, comma is delimiter for thousands
+                if (a.indexOf(',') < a.indexOf('.')) {
+                    // get rid of commas, leave decimal
+                    return a.replace(/,/g, '');
+                } 
+                // Case 1b: Period comes before comma, period is delimiter for thousands
+                else {
+                    // get rid of periods, replace comma with period as decimal
+                    return a.replace(/\./g, '').replace(/,/g, '.');
+                }
+            } 
+            // Case 2: Only commas are included
+            else if (a.includes(',')) {
+                // Case 2a: More than one comma, assume they are delimiter 
+                if ((a.match(/,/) || []).length > 1){
+                    return a.replace(/,/g, '');
+                }
+                // Case 2b: Only one comma, assume it is a decimal
+                else {
+                    const parts = a.split(',');
+                    // Case 2bi: Three digits after comma, assume it is a delimiter
+                    if (parts[1].length === 3) {
+                        return a.replace(/,/g, '');
+                    } 
+                    // Case 2bii: Assume it is a decimal
+                    else {
+                        return a.replace(/,/g, '.');
+                    }
+                }
+            }
+            // Case 3: Only periods or no
+            else {
+                // Case 3a: Only one period   
+                if ((a.match(/\./g) || []).length == 1) {
+                    const parts = a.split('.');
+                    // Case 3ai: Three digits after period, assume it is a delimiter
+                    if (parts[1].length === 3) {
+                        return a.replace(/\./g, '');
+                    } 
+                    // Case 3aii: 1 or 2 digits after period, assume it is a decimal
+                    else {
+                        return a;
+                    }
+                }
+                // Case 3b: Multiple periods or none, just remove if there and return
+                else {
+                    // just remove them
+                    return a.replace(/\./g, '');
+                }
+            }
+        })
+        number = parseFloat(normalizedAmount[0]);
+    }
+    
+    // Then, first, try to extract the three letter currency code
     const currencyRegex = /[A-Z]{3}/;
-    const currency = text.match(currencyRegex);
+    let currency = text.match(currencyRegex);
     if (currency) {
+        // ACCOUNT MANUALLY FOR CURRENCY SYMBOLS THAT ARE ALSO CURRENCY CODES
+        if (currency == 'YEN') {
+            currency = 'JPY';
+        } else if (currency == 'CFA') {
+            currency = 'XOF';
+        } else if (currency == 'FCF') {
+            currency = 'XAF';
+        } else if (currency == 'FCD') {
+            currency = 'CDF';
+        }
+        console.log("Amount: ", number);
+        console.log("Currency: ", currency);
         return {
-            currency: currency[0], 
+            currency: currency, 
             number: number
         };
     } 
     // If not, extract based off the keys in curreny_data.json
     for (let i = 0; i < currencyData.length; i++) {
         if (text.includes(currencyData[i].Symbol)) {
+            console.log("Amount: ", number);
+            console.log("Currency: ", currencyData[i].Abbreviation);
             return {
                 currency: currencyData[i].Abbreviation, 
                 number: number

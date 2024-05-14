@@ -2,6 +2,14 @@
   "manifest_version": 3,
   "name": "Currency Exchange Rates",
   "version": "1.0",
+  "description": "Easily convert currencies from your browser",
+  "icons": {
+    "16": "images/logo-16x16.png",
+    "32": "images/logo-32x32.png",
+    "180": "images/logo-180x180.png",
+    "192": "images/logo-192x192.png",
+    "512": "images/logo-512x512.png"
+  },
   "offline_enabled": true,
   "permissions": ["storage", "activeTab", "contextMenus", "scripting"],
   "background": {

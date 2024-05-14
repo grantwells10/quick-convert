@@ -1,10 +1,35 @@
+/* Overall styling for the App */
 .App {
-    color: black;
-    text-align: center;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  background-color: #C3DEC3;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  margin: 0 auto;
 }
 
-.container {
-  width: 400px;
-  padding: 1rem;
-  background-color: white;
+/* Heading styling */
+.App h1 {
+  color: #433F25;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Select box styling */
+.App select {
+  font-size: 0.75rem;
+  padding: 0.5rem;
+  border: 1.5px solid #433F25;
+  border-radius: 5px;
+  background-color: #F3E68A;
+  color: #433F25;
+  outline: none;
+}
+
+/* Add hover and focus effects */
+.App select:hover, .App select:focus {
+  border-color: #C3DEC3;
+  box-shadow: 0 0 5px #C3DEC3;
 }

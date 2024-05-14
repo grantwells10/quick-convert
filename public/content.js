@@ -133,9 +133,14 @@ async function fetchAndCacheRates() {
 // Function to convert currency from a given amount, fromCurrency to toCurrency
 
 async function convertCurrency(amount, fromCurrency, toCurrency) {
+    // check for case when user tries to convert currency to itself
+    if (fromCurrency == toCurrency) {
+        return amount;
+    }
     const rates = await retrieveCache();
     let conversionRate; 
     if (fromCurrency === "USD") {
+        console.log("Converting from USD");
         conversionRate = rates[`USD${toCurrency}`]; 
     } else {
         if (toCurrency === "USD") {
@@ -187,8 +192,10 @@ async function extractCurrencyAndAmount(text) {
 
     if (amount) {
         const normalizedAmount = amount.map(a => {
+            console.log("HANDLING -> " + a);
             // Case 1: Both commas and periods are included
             if (a.includes(',') && a.includes('.')) {
+                console.log("Case 1");
                 // Case 1a: Comma comes before period, comma is delimiter for thousands
                 if (a.indexOf(',') < a.indexOf('.')) {
                     // get rid of commas, leave decimal
@@ -202,25 +209,30 @@ async function extractCurrencyAndAmount(text) {
             } 
             // Case 2: Only commas are included
             else if (a.includes(',')) {
+                console.log("Case 2");
                 // Case 2a: More than one comma, assume they are delimiter 
                 if ((a.match(/,/) || []).length > 1){
                     return a.replace(/,/g, '');
                 }
                 // Case 2b: Only one comma, assume it is a decimal
                 else {
+                    console.log("2b");
                     const parts = a.split(',');
                     // Case 2bi: Three digits after comma, assume it is a delimiter
                     if (parts[1].length === 3) {
+                        console.log('2bi');
                         return a.replace(/,/g, '');
                     } 
                     // Case 2bii: Assume it is a decimal
                     else {
+                        console.log('2bii');
                         return a.replace(/,/g, '.');
                     }
                 }
             }
             // Case 3: Only periods or no
             else {
+                console.log("Case 3");
                 // Case 3a: Only one period   
                 if ((a.match(/\./g) || []).length == 1) {
                     const parts = a.split('.');
@@ -247,6 +259,7 @@ async function extractCurrencyAndAmount(text) {
     const currencyRegex = /[A-Z]{3}/;
     let currency = text.match(currencyRegex);
     if (currency) {
+        currency = currency[0];
         // ACCOUNT MANUALLY FOR CURRENCY SYMBOLS THAT ARE ALSO CURRENCY CODES
         if (currency == 'YEN') {
             currency = 'JPY';
@@ -260,8 +273,8 @@ async function extractCurrencyAndAmount(text) {
         console.log("Amount: ", number);
         console.log("Currency: ", currency);
         return {
-            currency: currency, 
-            number: number
+            currency: currency || "UNKNOWN", 
+            number: number || 0
         };
     } 
     // If not, extract based off the keys in curreny_data.json
@@ -270,26 +283,38 @@ async function extractCurrencyAndAmount(text) {
             console.log("Amount: ", number);
             console.log("Currency: ", currencyData[i].Abbreviation);
             return {
-                currency: currencyData[i].Abbreviation, 
-                number: number
+                currency: currencyData[i].Abbreviation || "UNKNOWN", 
+                number: number || 0
             };
         }
     }
 
+    return {
+        currency: "UNKNOWN",
+        number: number || 0
+    }
+
 }
 
-function createPopup(selectionText, position) {
+function createPopup(selectionText, position, flag) {
     var popup = document.createElement("div");
     popup.style.position = "fixed";
     popup.style.top = (position.top - 50) + "px"; // position it above the selection
     popup.style.left = (position.left) + "px"; // align it with the left side of the selection
     popup.style.backgroundColor = "#fff";
+    popup.style.color = "green";
     popup.style.border = "1px solid #000";
     popup.style.padding = "10px";
+    // make it at the front of every website
+    popup.style.zIndex = 999999;
     
     // Create a Popup div
     var selected = document.createElement("div");
-    selected.textContent = defaultToCurrency + ' ' + selectionText;
+    if (flag) {
+        selected.textContent = defaultToCurrency + ' ' + selectionText;
+    } else {
+        selected.textContent = selectionText;
+    }
     popup.appendChild(selected);
     
     popup.id = "myPopup";
@@ -307,8 +332,18 @@ document.addEventListener("mouseup", async (event) => {
         // get target currency from storage
         await updateCurrencyFromStorage();
         const selectedCurr = await extractCurrencyAndAmount(selectionText); 
-        const result = await convertCurrency(selectedCurr.number, selectedCurr.currency, defaultToCurrency);
-        const popup = createPopup(result.toFixed(2), rect);
+        let result = null; 
+        let flag = true; 
+        if (selectedCurr.currency == "UNKNOWN") {
+            result = "Currency not recognized";
+            flag = false;
+        } else {
+            result = await convertCurrency(selectedCurr.number, selectedCurr.currency, defaultToCurrency);
+        }
+        if (flag) {
+            result = result.toFixed(2);
+        }
+        const popup = createPopup(result, rect, flag);
         document.body.appendChild(popup);
         document.addEventListener("mousedown", function(event) {
           var isClickInside = popup.contains(event.target);

@@ -7,13 +7,14 @@
     "@types/node": "^16.18.11",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "axios": "^0.21.1",
     "copy-webpack-plugin": "^11.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^4.9.4",
-    "web-vitals": "^2.1.4",
-    "express": "^4.17.1",
-    "axios": "^0.21.1"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "node server.js",
@@ -62,7 +63,9 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
-    "setupFilesAfterEnv": ["<rootDir>/src/setupTests.ts"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ],
     "transform": {
       "^.+\\.(js|jsx|ts|tsx)$": "ts-jest",
       "^.+\\.css$": "<rootDir>/src/__mocks__/styleMock.js"
@@ -70,11 +73,21 @@
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js"
     },
-    "coverageReporters": ["text", "html"],
+    "coverageReporters": [
+      "text",
+      "html"
+    ],
     "testMatch": [
       "**/__tests__/**/*.[jt]s?(x)",
       "**/?(*.)+(spec|test).[jt]s?(x)"
     ],
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }

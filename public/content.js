@@ -311,7 +311,9 @@ function createPopup(selectionText, position, flag) {
     // Create a Popup div
     var selected = document.createElement("div");
     if (flag) {
-        selected.textContent = defaultToCurrency + ' ' + selectionText;
+        // Format selectionText with commas for every three digits
+        var formattedSelection = parseFloat(selectionText).toLocaleString();
+        selected.textContent = defaultToCurrency + ' ' + formattedSelection;
     } else {
         selected.textContent = selectionText;
     }
@@ -321,6 +323,7 @@ function createPopup(selectionText, position, flag) {
 
     return popup;
 }
+
 
 document.addEventListener("mouseup", async (event) => {
     var selection = window.getSelection();

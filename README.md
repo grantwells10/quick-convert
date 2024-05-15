@@ -1,6 +1,10 @@
 # QuickConvert Chrome Extension
 
+![logo](https://github.com/grantwells10/quick-convert/assets/47901670/620a9aff-c1ed-436f-91ff-a291ce7900a4)
+
 QuickConvert is a Chrome Extension that allows users to highlight a currency and price on a webpage and then it converts the price into the desired target currency in a popup. The dropdown menu for this Chrome Extension allows users select the target currency. This Chrome extension uses [React](https://react.dev/) with TypeScript and Webpack, [storage](https://developer.chrome.com/docs/extensions/reference/api/storage), [contextMenus](https://developer.chrome.com/docs/extensions/reference/api/contextMenus), and the [CurrencyLayer API](https://currencylayer.com). Currency rates are obtained and cached during the first conversion and stored for the next 8 hours. Visit our [landing page](https://hrizwan3.github.io/QuickConvert/) or watch the [demo](https://drive.google.com/file/d/1ZhXaQSzRG0JjTSt0j-G4vpGZ0CsFKzze/view?usp=sharing) for more information!
+
+Built by Grant Wells, Hassan Rizwan, Rachel Nguyen, and Peter Proenca. 
 
 ## Installation
 
@@ -52,3 +56,7 @@ This project follows the Manifest V3 architecture for Chrome extensions. Key com
 ## Credits
 
 The initial setup of this project was based on the tutorial by [Harshita Joshi](https://github.com/Harshita-mindfire) on creating a Chrome extension with React and TypeScript. The corresponding Medium article can be found [here](https://medium.com/@tharshita13/creating-a-chrome-extension-with-react-a-step-by-step-guide-47fe9bab24a1). Additionally, this repo is based on Jérémie Lumbroso's [Text Collector](https://github.com/jlumbroso/chrome-extension-text-collector) chrome extension. 
+
+## Issues
+
+If you notice any issues or bugs with the extension, feel free to create an issue [here](https://github.com/grantwells10/quick-convert/issues)

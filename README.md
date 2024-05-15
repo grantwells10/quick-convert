@@ -1,6 +1,7 @@
 # QuickConvert Chrome Extension
 
-![logo](https://github.com/grantwells10/quick-convert/assets/47901670/d998dc79-9f91-450a-861a-454adfef12a6)
+![logo-192x192](https://github.com/grantwells10/quick-convert/assets/47901670/a6d4a6da-174a-4438-9468-6490caab0aaf)
+
 
 
 

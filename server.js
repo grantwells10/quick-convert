@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/api', async (req, res) => {
-    const url = `https://apilayer.net/api/live`;
+    const url = `http://apilayer.net/api/live`;
     try {
         const response = await axios.get(url, {
             params: {
